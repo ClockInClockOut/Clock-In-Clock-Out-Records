@@ -1,4 +1,4 @@
-<!D<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Clock In/Out System</title>
@@ -18,7 +18,7 @@
                 return;
             }
 
-            let url = "https://script.google.com/macros/s/AKfycbzug9VhRO7z8eXzOjlyWqm7pFPCfUU6WLX-0APXFL2DOVverJZSqXJcigS9ZiodRn9N-A/exec";
+            let url = "https://script.google.com/macros/s/AKfycbxgvPBTGrKt_lkIpbGHTf12iTcYHX26P0O8hX8HNojcGFbvjUDFjfqbcX6fvcoMZfTLyw/exec";
             
             fetch(url + "?name=" + encodeURIComponent(name) + "&action=" + action)
                 .then(response => response.text())
