@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!D<!DOCTYPE html>
 <html>
 <head>
     <title>Clock In/Out System</title>
@@ -17,12 +17,19 @@
                 alert("Please enter your name.");
                 return;
             }
-            let url = "https://script.google.com/macros/s/AKfycbydgz3ytDizv9-O7aVCOx8X9rfd8VrNn0hT0Jxc_TbMZulVZ22Z738L-MhJ1jz1Ft3EvA/exec";
+
+            let url = "https://script.google.com/macros/s/AKfycbzug9VhRO7z8eXzOjlyWqm7pFPCfUU6WLX-0APXFL2DOVverJZSqXJcigS9ZiodRn9N-A/exec";
             
             fetch(url + "?name=" + encodeURIComponent(name) + "&action=" + action)
                 .then(response => response.text())
-                .then(data => alert(data))
-                .catch(error => alert("Error: " + error));
+                .then(data => {
+                    alert(data);
+                    console.log("Response:", data);
+                })
+                .catch(error => {
+                    alert("Error: " + error);
+                    console.error("Error:", error);
+                });
         }
 
         function clockIn() { sendData("clockin"); }
