@@ -2,32 +2,79 @@
 <html>
 <head>
     <title>Clock In/Out System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        input {
+            font-size: 16px;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            font-size: 16px;
+            padding: 8px 15px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        #clockInBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #clockOutBtn {
+            background-color: #f44336;
+            color: white;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
     <h2>Employee Clock In/Out</h2>
     <label>Enter Your Name:</label>
     <input type="text" id="employeeName" required>
-    <button onclick="clockIn()">Clock In</button>
-    <button onclick="clockOut()">Clock Out</button>
+    <br>
+    <button id="clockInBtn" onclick="clockIn()">Clock In</button>
+    <button id="clockOutBtn" onclick="clockOut()">Clock Out</button>
+    
+    <div class="message" id="responseMessage"></div>
 
     <script>
         function sendData(action) {
             let name = document.getElementById("employeeName").value;
-            if (!name) {
-                alert("Please enter your name.");
+            let responseMessage = document.getElementById("responseMessage");
+
+            if (!name.trim()) {
+                responseMessage.innerHTML = "⚠️ Please enter your name.";
                 return;
             }
 
-            let url = "https://script.google.com/macros/s/AKfycbyeQFJf6tr1Havja5mHssNmwv028aLLz5Z1hgLhMZutqvXU4BMlHHeRifFPC8Gy68XFSQ/exec";
+            let url = "https://script.google.com/macros/s/AKfycbxMgt0G0vNm-AdAffbYh_ZMjkTtCjqWccGFGisDEzGki_w-dK1Eq6wWJ5u4jmUmdJS1aA/exec"; // Updated URL
             
             fetch(url + "?name=" + encodeURIComponent(name) + "&action=" + action)
                 .then(response => response.text())
                 .then(data => {
-                    alert(data);
+                    responseMessage.innerHTML = data.includes("Error") ? 
+                        "❌ " + data : "✅ " + data;
                     console.log("Response:", data);
                 })
                 .catch(error => {
-                    alert("Error: " + error);
+                    responseMessage.innerHTML = "❌ Error: " + error;
                     console.error("Error:", error);
                 });
         }
