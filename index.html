@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Clock In/Out System</title>
+    <title>Employee Clock In/Out System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,6 +27,7 @@
             margin: 10px;
             border: none;
             cursor: pointer;
+            border-radius: 5px;
         }
         #clockInBtn {
             background-color: #4CAF50;
@@ -56,15 +57,15 @@
 
     <script>
         function sendData(action) {
-            let name = document.getElementById("employeeName").value;
+            let name = document.getElementById("employeeName").value.trim();
             let responseMessage = document.getElementById("responseMessage");
 
-            if (!name.trim()) {
+            if (!name) {
                 responseMessage.innerHTML = "⚠️ Please enter your name.";
                 return;
             }
 
-            let url = "https://script.google.com/macros/s/AKfycbxMgt0G0vNm-AdAffbYh_ZMjkTtCjqWccGFGisDEzGki_w-dK1Eq6wWJ5u4jmUmdJS1aA/exec"; // Updated URL
+            let url = "https://script.google.com/macros/s/AKfycbw7dAtS2MAGSWDMYiqRxTjvQrguZfobdo4-EeifhuCSYpxkM7ER07k6a1lIW_2GN9igzw/exec"; // Updated URL
             
             fetch(url + "?name=" + encodeURIComponent(name) + "&action=" + action)
                 .then(response => response.text())
