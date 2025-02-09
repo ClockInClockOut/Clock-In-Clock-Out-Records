@@ -1,87 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Employee Clock In/Out System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-            background-color: #f4f4f4;
-        }
-        h2 {
-            color: #333;
-        }
-        label {
-            font-size: 18px;
-            margin-right: 10px;
-        }
-        input {
-            font-size: 16px;
-            padding: 5px;
-            width: 200px;
-        }
-        button {
-            font-size: 16px;
-            padding: 8px 15px;
-            margin: 10px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        #clockInBtn {
-            background-color: #4CAF50;
-            color: white;
-        }
-        #clockOutBtn {
-            background-color: #f44336;
-            color: white;
-        }
-        .message {
-            margin-top: 20px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #555;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Employee Clock In/Out System</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+          margin-top: 50px;
+          background-color: #f4f4f4;
+      }
+      h2 {
+          color: #333;
+      }
+      label {
+          font-size: 18px;
+          margin-right: 10px;
+      }
+      input {
+          font-size: 16px;
+          padding: 5px;
+          width: 200px;
+      }
+      button {
+          font-size: 16px;
+          padding: 8px 15px;
+          margin: 10px;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+      }
+      #clockInBtn {
+          background-color: #4CAF50;
+          color: white;
+      }
+      #clockOutBtn {
+          background-color: #f44336;
+          color: white;
+      }
+      .message {
+          margin-top: 20px;
+          font-size: 16px;
+          font-weight: bold;
+          color: #555;
+      }
+  </style>
 </head>
 <body>
-    <h2>Employee Clock In/Out</h2>
-    <label>Enter Your Name:</label>
-    <input type="text" id="employeeName" required>
-    <br>
-    <button id="clockInBtn" onclick="clockIn()">Clock In</button>
-    <button id="clockOutBtn" onclick="clockOut()">Clock Out</button>
-    
-    <div class="message" id="responseMessage"></div>
+  <h2>Employee Clock In/Out</h2>
+  <label>Enter Your Name:</label>
+  <input type="text" id="employeeName" required>
+  <br>
+  <button id="clockInBtn" onclick="clockIn()">Clock In</button>
+  <button id="clockOutBtn" onclick="clockOut()">Clock Out</button>
+  
+  <div class="message" id="responseMessage"></div>
 
-    <script>
-        function sendData(action) {
-            let name = document.getElementById("employeeName").value.trim();
-            let responseMessage = document.getElementById("responseMessage");
+  <script>
+      function sendData(action) {
+          let name = document.getElementById("employeeName").value.trim();
+          let responseMessage = document.getElementById("responseMessage");
 
-            if (!name) {
-                responseMessage.innerHTML = "⚠️ Please enter your name.";
-                return;
-            }
+          if (!name) {
+              responseMessage.innerHTML = "⚠️ Please enter your name.";
+              return;
+          }
 
-            let url = "https://script.google.com/macros/s/AKfycbx92i2I6m9vWgONAe0A8xtwXOBY9K8rw2YXg4iDNqvNOIabfCD8qPsfkX6aEor5T38u/exec"; // Updated URL
-            
-            fetch(url + "?name=" + encodeURIComponent(name) + "&action=" + action)
-                .then(response => response.text())
-                .then(data => {
-                    responseMessage.innerHTML = data.includes("Error") ? 
-                        "❌ " + data : "✅ " + data;
-                    console.log("Response:", data);
-                })
-                .catch(error => {
-                    responseMessage.innerHTML = "❌ Error: " + error;
-                    console.error("Error:", error);
-                });
-        }
+          // Updated URL with your new web app URL
+          let url = "https://script.google.com/macros/s/AKfycbzs1hmwy82MqwoTGX8WceMpd1QPoD1J2HyHEwFMAmD2YoiLJK0jnRkorSDuC5cjGw/exec";
+          
+          fetch(url + "?name=" + encodeURIComponent(name) + "&action=" + action)
+              .then(response => response.text())
+              .then(data => {
+                  responseMessage.innerHTML = data.includes("Error") ? "❌ " + data : "✅ " + data;
+                  console.log("Response:", data);
+              })
+              .catch(error => {
+                  responseMessage.innerHTML = "❌ Error: " + error;
+                  console.error("Error:", error);
+              });
+      }
 
-        function clockIn() { sendData("clockin"); }
-        function clockOut() { sendData("clockout"); }
-    </script>
+      function clockIn() {
+          sendData("clockin");
+      }
+
+      function clockOut() {
+          sendData("clockout");
+      }
+  </script>
 </body>
 </html>
